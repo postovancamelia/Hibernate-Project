@@ -20,7 +20,7 @@ public class Main {
                 6000L,       // visibility m
                 1015         // pressure hPa
         );
-        Long id = dao.save(today);
+        Long id = dao.create(today);
         System.out.println("Inserted Weather ID = " + id);
 
         // READ

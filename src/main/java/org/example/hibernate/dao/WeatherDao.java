@@ -11,7 +11,7 @@ import java.util.List;
 
 public class WeatherDao {
 
-    public Long save(Weather weather) {
+    public Long create(Weather weather) {
         Transaction tx = null;
         Long id;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -29,7 +29,7 @@ public class WeatherDao {
 
     public Weather find(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            WeatherRecord rec = session.byId(WeatherRecord.class).load(id);
+            WeatherRecord rec = session.find(WeatherRecord.class, id);
             return rec != null ? rec.toDomain() : null;
         }
     }
@@ -48,7 +48,7 @@ public class WeatherDao {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            WeatherRecord rec = session.get(WeatherRecord.class, id);
+            WeatherRecord rec = session.find(WeatherRecord.class, id);
             if (rec == null) throw new IllegalArgumentException("WeatherRecord not found: id=" + id);
 
             // copy new values
@@ -72,7 +72,7 @@ public class WeatherDao {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            WeatherRecord rec = session.get(WeatherRecord.class, id);
+            WeatherRecord rec = session.find(WeatherRecord.class, id);
             if (rec != null) session.remove(rec);
             tx.commit();
         } catch (Exception ex) {
