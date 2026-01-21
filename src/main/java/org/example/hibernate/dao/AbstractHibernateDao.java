@@ -36,7 +36,7 @@ public abstract class AbstractHibernateDao<T, ID extends Serializable>
     @Override
     public Optional<T> findById(ID id) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.ofNullable(session.get(entityClass, id));
+            return Optional.ofNullable(session.find(entityClass, id));
         }
     }
 
@@ -83,7 +83,7 @@ public abstract class AbstractHibernateDao<T, ID extends Serializable>
         Transaction tx = null;
         try (Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
-            T entity = session.get(entityClass, id);
+            T entity = session.find(entityClass, id);
             if (entity != null) {
                 session.remove(entity);
             }
