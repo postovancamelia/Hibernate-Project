@@ -47,7 +47,7 @@ public class WeatherRecord {
         this.pressure = pressure;
     }
 
-    // --- Mapping helpers between domain and entity ---
+    // Mapping helpers between domain and entity
     public static WeatherRecord from(Weather w) {
         return new WeatherRecord(
                 w.getDate(),
@@ -64,7 +64,7 @@ public class WeatherRecord {
         return new Weather(date, raining, windSpeed, temperature, cloudsPercentage, distanceVisible, pressure);
     }
 
-    // --- Getters & setters for JPA (only where needed) ---
+    // Getters & setters for JPA (only where needed)
     public Long getId() { return id; }
     public LocalDateTime getDate() { return date; }
     public boolean isRaining() { return raining; }
